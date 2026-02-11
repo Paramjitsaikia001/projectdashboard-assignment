@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   const [filters, setFilters] = useState({
     search: '',
-    status: [ProjectStatus.ACTIVE, ProjectStatus.ON_HOLD, ProjectStatus.COMPLETED],
+    status: [],
   });
 
   const [selectedProjectId, setSelectedProjectId] = useState(null);
@@ -31,7 +31,7 @@ const Dashboard = () => {
   return MOCK_PROJECTS.filter((p) => {
     const nameMatch = normalize(p.name).includes(search);
     const clientMatch = normalize(p.clientName).includes(search);
-    const statusMatch = filters.status.includes(p.status);
+   const statusMatch =filters.status.length === 0 || filters.status.includes(p.status);
 
     return (nameMatch || clientMatch) && statusMatch;
   });
@@ -68,6 +68,8 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 transition-colors duration-300">
+
+
       <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div 
@@ -89,10 +91,12 @@ const Dashboard = () => {
               Dashboard
             </button>
           </div>
+
+
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <main className="w-[98%] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {view === 'list' ? (
           <div className="animate-in fade-in duration-500">
             <div className="mb-8">
@@ -116,8 +120,11 @@ const Dashboard = () => {
                       <th scope="col" className="relative px-6 py-4"><span className="sr-only">View</span></th>
                     </tr>
                   </thead>
+
                   <tbody className="bg-white divide-y divide-slate-200">
+
                     {filteredProjects.length > 0 ? (
+
                       filteredProjects.map((project) => (
                         <tr 
                           key={project.id} 
@@ -125,7 +132,7 @@ const Dashboard = () => {
                           className="group hover:bg-slate-50 cursor-pointer transition-all"
                         >
                           <td className="px-6 py-5 whitespace-nowrap">
-                            <div className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors truncate max-w-70">
+                            <div className="text-md font-bold text-slate-900 group-hover:text-indigo-600 transition-colors truncate max-w-70">
                               {project.name}
                             </div>
                             <div className="text-xs text-slate-400 mt-0.5">

@@ -43,6 +43,7 @@ const ProjectFilters = ({ filters, onFilterChange }) => {
 
 
       <div className="flex flex-wrap gap-2">
+
         {statusOptions.map((status) => {
           const isActive = filters.status.includes(status);
           return (
@@ -59,6 +60,15 @@ const ProjectFilters = ({ filters, onFilterChange }) => {
             </button>
           );
         })}
+
+        <div className="allclear">
+          <button
+            onClick={() => onFilterChange({ search: '', status: [] })}
+            className="px-3 py-1.5 rounded-full cursor-pointer text-sm font-medium transition-all border bg-slate-100 border-slate-300 text-slate-500 hover:bg-slate-200"
+          >
+            Clear All
+          </button>
+        </div>
       </div>
 
 
